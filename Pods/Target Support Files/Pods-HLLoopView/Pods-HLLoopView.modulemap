@@ -1,0 +1,6 @@
+framework module Pods_HLLoopView {
+  umbrella header "Pods-HLLoopView-umbrella.h"
+
+  export *
+  module * { export * }
+}

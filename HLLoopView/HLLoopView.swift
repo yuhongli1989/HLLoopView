@@ -24,8 +24,9 @@ class HLLoopView<Item:HLLoopViewItem>: UIView,UICollectionViewDelegate,UICollect
         v.dataSource = self
         return v
     }()
-    
-    var currentPageBack:((_ page:Int,_ item:Item)->Void)?
+    typealias LoopBlock = (_ page:Int,_ item:Item)->Void
+    var didSelected:LoopBlock?
+    var currentPageBack:LoopBlock?
     var loopTimeInterval:Double = 3
     var items:[Item] = []
     private var currentPage:Int = 0
@@ -74,6 +75,10 @@ class HLLoopView<Item:HLLoopViewItem>: UIView,UICollectionViewDelegate,UICollect
         currentPage+=1
         
         contentView.scrollToItem(at: IndexPath(row: currentPage, section: 0), at: .centeredHorizontally, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelected?(pageIndex,items[currentPage])
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
